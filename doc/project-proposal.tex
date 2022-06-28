@@ -44,11 +44,12 @@
 \maketitle
 
 \section{Title and Team Members}
-Our project is `Prediction of stock price of a company via sentiment analysis of tweets'. The team members are - \texttt{Shobhit Verma (shobhitv@uchicago.edu)} and \texttt{Ashish Verma (ashishv@uchicago.edu)}.
+Our project is `\texttt{Prediction of stock prices via sentiment analysis}'. The team members are - \texttt{Shobhit Verma (shobhitv@uchicago.edu)} and \texttt{Ashish Verma (ashishv@uchicago.edu)}.
 
 \section{Abstract}
-    Our project aims at tackling the age old problem of predicting stock prices. Our assumption (which is widely accepted) is that the share price is hugely correlated to `public sentiment'. In this project, we first aim at quantifying public sentiment by sentiment analysis of related tweets, and then use that to predict the change in stock price. The project is composed of two parts:
+    Our project aims at tackling the age old problem of predicting stock prices. Our assumption - which is widely accepted - is that the share price is hugely correlated to `public sentiment'. In this project, we first aim at quantifying public sentiment by sentiment analysis of related tweets, and then use that to predict the change in stock price. The project is composed of three parts:
     \begin{enumerate}
+        \item Curate a dataset of tweets that capture the sentiment of the stock market and stock prices. 
         \item Building a classification model for sentiment analysis of tweets - given a tweet, the model classifies the tweet into one of the following 5 classes: extremely negative, negative, neutral, positive, extremely positive.
         \item Building a regression model that maps the sentiment (or a group of sentiments of all the tweets made in, say, a day) to the change (delta) in stock price.
     \end{enumerate}
@@ -59,14 +60,14 @@ Our project is `Prediction of stock price of a company via sentiment analysis of
 
     [3] gives a perfect survey of existing sentiment analysis algorithms and applications. It organizes these algorithms into two broad categories - the machine learning approach and the lexicon based approach. We adopt the former category in this project. Although not used in this project, it is worth describing lexicon based approaches - these rely on a sentiment lexicon, a collection of known and precompiled sentiment terms. Further division is into dictionary-based approach and corpus-based approach which use statistical or semantic methods to find sentiment polarity. [3] surveys and compares the following ML approaches - Probabilistic classifiers (Naive Bayes classifier, Bayesian networks, Maximum Entropy classifier), Linear classifiers (Support Vector Machines, Neural Networks), Decision Tree classifiers and rule based classifiers. They, however, do not mention models used commonly in NLP tasks - RNNs/LSTMs, GRUs and transformers. 
 
-    As stated by [4], the main problems of the supervised methods mentioned above are that they need a large amount of training data and are usually slow. 
+    As stated by [4], the main problems of the supervised methods mentioned above are that they need a large amount of training data and are usually slow, and while the lexicon based approaches are much faster, they usually fail at hitting a practical accuracy target. [4] shows that an attention based CNN-RNN model works better than the aforementioned supervised methods. They however, do not mention usage of transformers.
 
 \section{Plan of action}
+The action items are broadly categorized into 3 steps, mentioned below.
 \begin{itemize}
-    \item WHy are we not using existing datasets
-    \item Curate dataset specific to comapanies - using twitter API fetch tweets, and using yahoo finance api fetch stock price.
-    \item Use different models in sentiment analysis annotator - RNN/LSTM, Transformer
-    \item Develop a regression model for sentiment -> stock price fluctuation
+    \item Curate dataset specific to comapanies - using twitter API fetch tweets, other APIs from financial news channels and using yahoo finance api fetch stock price. Specifically, we are interested at the opening and closing price of the stock given a day. We then attempt to correlate the sentiment of tweets for a day to the stock price fluctuation.
+    \item For the purpose of sentiment analysis, we use a classifier to quantify the notion of sentiment into five categories. We use the following models - Feed Forward Neural Networks, CNNs, RNNs/LSTMs, Transformers. We choose the model with best performance. We will use word2vec dataset for getting accurate word embeddings.
+    \item Once we have confidence on the quantified value of the sentiment by day, we will correlate this to the fluctuation of the stock price on the same day using a regression model. Here, some exploration will be required - most of the previous work in this domain focuses on correlation of a sentiment of a day to the stock price fluctuation on the same day, however, we feel that the stock price may depend on the overall sentiment of a certain number of days instead of one. For example, a highly negative sentiment (say, outbreak of war) will continue to effect stock prices for more than a day.
 \end{itemize}
 
 \section{Evaluation criteria}
@@ -88,3 +89,5 @@ Our project is `Prediction of stock price of a company via sentiment analysis of
 % [1] https://en.wikipedia.org/wiki/Stock_market
 % [2] https://www.investopedia.com/ask/answers/how-companys-stock-price-and-market-cap-determined/
 % [3] Medhat, Walaa, Ahmed Hassan, and Hoda Korashy. "Sentiment analysis algorithms and applications: A survey." Ain Shams engineering journal 5, no. 4 (2014): 1093-1113.
+% [4] Basiri, Mohammad Ehsan, Shahla Nemati, Moloud Abdar, Erik Cambria, and U. Rajendra Acharya. "ABCDM: An attention-based bidirectional CNN-RNN deep model for sentiment analysis." Future Generation Computer Systems 115 (2021): 279-294.
+%         \item Curate a dataset of tweets specific to a company - to capture microeconomic factors - and general tweets about the stock market from news channels - to capture macroeconomic factors. Then, we fetch stock prices, specifically, 
