@@ -22,14 +22,12 @@
 \usepackage{subcaption}
 
 % Must be at end:
-\usepackage{hyperref}
+\usepackage{xurl}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,      
-    urlcolor=cyan,
-    pdftitle={Overleaf Example},
-    pdfpagemode=FullScreen,
+    urlcolor=blue,
 }
 
 \makeatletter
@@ -62,6 +60,8 @@ Our project is `\texttt{Prediction of stock prices via sentiment analysis}'. The
 
     As stated by [4], the main problems of the supervised methods mentioned above are that they need a large amount of training data and are usually slow, and while the lexicon based approaches are much faster, they usually fail at hitting a practical accuracy target. [4] shows that an attention based CNN-RNN model works better than the aforementioned supervised methods. They however, do not mention usage of transformers.
 
+    [5] presents another similar related work which attemps to solve the same problem of stock price prediction using Tweets. It uses pre-trained Glove and Sentiment-Specific Word Embeddings and NLTK tokenizer, and then predicts a positive or negative sentiment for a particular tweet using a softmax classifier. Using this positive or negative sentiment, a prediction is made if the stock price will increase, or decrease. However no absolute value of the delta is predicted. As a direct improvement, in this project we'll attempt to predict the actual delta in the stock price by using a multi-class sentiment from a given set of Tweets rather than just positive or negative, and then predict the magnitude using that.
+
 \section{Plan of action}
 The action items are broadly categorized into 3 steps, mentioned below.
 \begin{itemize}
@@ -72,17 +72,26 @@ The action items are broadly categorized into 3 steps, mentioned below.
 
 \section{Evaluation criteria}
 \begin{itemize}
-    \item Train till day T - k, predict from T - k to T, compare with actual/ground truth
-    \item Train till day k, predict stock price at end of k+1, compare with ground truth.
+    \item Train till day $k$, predict stock price at end of $k+1$, compare with ground truth. We'll build a training set comprising Tweets and corresponding fluctuation in stock price till day $k$, and then predict the stock price delta for the next day and compare it with the ground truth for next day.
+    \item Train till day T - k, predict from T - k to T, compare with actual/ground truth. We'll only train on a dataset which contains Tweets till day $T - k$, and then predict the consecutive fluctuations in the stock prices for the next $k$ days and compare with ground truth.
+    \item We'll compare our model's accuracy with the existing work in this domain.
 \end{itemize}
 
 \section{Division of work}
 \begin{itemize}
-    \item Dataset curation - company specific division, 
-    \item Different models for SA - study them by dividing
-    \item Regression model - same
+    \item Dataset curation. The dataset comprises of 2 sets of data - the Tweets (input $X$), and the corresponding fluctuation in stock price for the next day (label $y$). We'll divide this curation of X and y, corresponding to each organization.
+    \item Study the existing work in this domain by dividing the work/research-papers.
+    \item We'll experiment with different model designs to land at the best possible network. We'll individually experiment with different network configurations after discussing.
 \end{itemize}
 
+\section{References}
+\begin{itemize}
+    \item {[1]} \url{https://en.wikipedia.org/wiki/Stock_market}
+    \item {[2]} \url{https://investopedia.com/ask/answers/how-companys-stock-price-and-market-cap-determined}
+    \item {[3]} Medhat, Walaa, Ahmed Hassan, and Hoda Korashy. "Sentiment analysis algorithms and applications: A survey." Ain Shams engineering journal 5, no. 4 (2014): 1093-1113.
+    \item {[4]} Basiri, Mohammad Ehsan, Shahla Nemati, Moloud Abdar, Erik Cambria, and U. Rajendra Acharya. "ABCDM: An attention-based bidirectional CNN-RNN deep model for sentiment analysis." Future Generation Computer Systems 115 (2021): 279-294.configurations after discussing.
+    \item {[5]} Michael Jermann "Predicting Stock Movement through Executive Tweets". \url{https://web.stanford.edu/class/archive/cs/cs224n/cs224n.1174/reports/2743946.pdf}
+\end{itemize}
 \end{document}
 
 % Refs
