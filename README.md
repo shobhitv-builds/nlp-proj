@@ -1,6 +1,9 @@
 # MPCS 53113 NLP Project
 # Stock Movement Prediction from Twitter Sentiment Analysis
 
+# Project Report
+Project report can be found at ```doc/proect-report.pdf'''
+
 ### Steps to run the project:
 1) Download the [Sentiment140 Dataset](https://www.kaggle.com/datasets/kazanova/sentiment140) and place `training.1600000.processed.noemoticon.csv` in `./data` directory.
 2) Run the cells in the notebook `sentiment-classifiers.ipynb`. This will train sentiment classifier models and save them in `./data/models/sentiment-clfs/` directory.
